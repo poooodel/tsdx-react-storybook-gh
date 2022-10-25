@@ -37,19 +37,20 @@
   "scripts": {
     "badges": "istanbul-badges-readme --coverageDir=test/__coverage__ --logo=jest",
     "build": "tsdx build --format cjs,esm,umd,system",
-    "clean": "yarn husky || : && rm -rf dist && rm -rf deploy && rm -rf node_modules && rm -rf storybook-static && yarn install && cd example && yarn clean",
-    "deploy": "rm -rf deploy && mkdir deploy && yarn test && yarn build && yarn storybook:build && cp -r storybook-static deploy/storybook && cp -r test/__coverage__ deploy/coverage && cd example && yarn install && yarn run parcel build --public-url=https://azigler.github.io/tsdx-react-storybook-starter/example index.html && cp -r dist/. ../deploy/example",
+    "clean": "npm run husky || : && rm -rf dist && rm -rf deploy && rm -rf node_modules && rm -rf storybook-static && npm run setup && cd example && npm run clean",
+    "deploy": "rm -rf deploy && mkdir deploy && npm run test && npm run build && npm run storybook:build && cp -r storybook-static deploy/storybook && cp -r test/__coverage__ deploy/coverage && cd example && npm run setup && npm run run parcel build --public-url=https://azigler.github.io/tsdx-react-storybook-starter/example index.html && cp -r dist/. ../deploy/example",
     "dev": "tsdx watch",
-    "husky": "rm -rf .husky && husky install && npx husky add .husky/pre-commit 'yarn husky:prepare'",
-    "husky:prepare": "yarn lint && yarn build && yarn test && yarn size && yarn storybook:build",
+    "husky": "rm -rf .husky && husky install && npx husky add .husky/pre-commit 'npm run husky:prepare'",
+    "husky:prepare": "npm run lint && npm run build && npm run test && npm run size && npm run storybook:build",
     "lint": "tsdx lint src --fix",
     "size": "size-limit",
-    "start": "yarn dev",
+    "start": "npm run dev",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "rm -rf storybook-static && build-storybook",
-    "test": "tsdx test --passWithNoTests --json --outputFile=test/__coverage__/jest-test-results.json --coverageDirectory=test/__coverage__ --coverage && yarn badges",
-    "test:ci": "yarn test --runInBand --ci",
-    "test:watch": "yarn test --watch --maxWorkers=25%"
+    "test": "tsdx test --passWithNoTests --json --outputFile=test/__coverage__/jest-test-results.json --coverageDirectory=test/__coverage__ --coverage && npm run badges",
+    "test:ci": "npm run test --runInBand --ci",
+    "test:watch": "npm run test --watch --maxWorkers=25%",
+    "setup": "npm i --force"
   },
   "prettier": {
     "semi": false
